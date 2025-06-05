@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>清晰思考读书分享 - 谢昊</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            scroll-behavior: smooth;
+        }
+        
+        .slide-container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        
+        .tech-grid {
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        .tech-pattern {
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+        
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .slide-in {
+            animation: slideIn 1s ease-out;
+        }
+        .slide-in-delay {
+            animation: slideIn 1s ease-out 0.3s both;
+        }
+        .slide-in-delay-2 {
+            animation: slideIn 1s ease-out 0.6s both;
+        }
+        .slide-in-delay-3 {
+            animation: slideIn 1s ease-out 0.9s both;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse-subtle {
+            animation: pulseSubtle 2s ease-in-out infinite;
+        }
+        @keyframes pulseSubtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .summary-animation {
+            animation: summaryEffect 3s ease-in-out infinite;
+        }
+        @keyframes summaryEffect {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.05) rotate(2deg); }
+        }
+        
+        .action-pulse {
+            animation: actionPulse 1.5s ease-in-out infinite;
+        }
+        @keyframes actionPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+        }
+        
+        .check-animation {
+            animation: checkMark 0.6s ease-in-out;
+        }
+        @keyframes checkMark {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .process-arrow {
+            position: relative;
+        }
+        .process-arrow::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3b82f6;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .process-arrow:last-child::after {
+            display: none;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .navigation {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(59, 130, 246, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-dot.active {
+            background-color: #3b82f6;
+            transform: scale(1.4);
+        }
+        
+        .progress-bar {
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 2px;
+            animation: progressFill 2s ease-out;
+        }
+        @keyframes progressFill {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+        
+        .section-title {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #3b82f6;
+            z-index: 10;
+        }
+        
+        .page-indicator {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #3b82f6;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Dots -->
+    <div class="navigation">
+        <div class="nav-dot active" data-target="section1"></div>
+        <div class="nav-dot" data-target="section2"></div>
+        <div class="nav-dot" data-target="section3"></div>
+        <div class="nav-dot" data-target="section4"></div>
+        <div class="nav-dot" data-target="section5"></div>
+        <div class="nav-dot" data-target="section6"></div>
+    </div>
+
+    <!-- Section 1: 封面 -->
+    <section id="section1" class="slide-container relative" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="section-title">封面</div>
+        <div class="page-indicator">1/6</div>
+        
+        <!-- Decorative elements -->
+        <div class="absolute top-16 left-16 floating-element">
+            <i class="fas fa-brain text-6xl text-white opacity-20"></i>
+        </div>
+        <div class="absolute bottom-20 right-20 floating-element" style="animation-delay: -2s;">
+            <i class="fas fa-lightbulb text-5xl text-white opacity-20"></i>
+        </div>
+        <div class="absolute top-1/3 right-32 floating-element" style="animation-delay: -4s;">
+            <i class="fas fa-cogs text-4xl text-white opacity-15"></i>
+        </div>
+        
+        <!-- Main content -->
+        <div class="bg-white bg-opacity-95 backdrop-blur rounded-3xl shadow-2xl p-16 max-w-4xl mx-8 slide-in tech-pattern">
+            <div class="text-center">
+                <!-- Book icon -->
+                <div class="mb-8">
+                    <i class="fas fa-book-open text-6xl text-blue-600 mb-4"></i>
+                </div>
+                
+                <!-- Main title -->
+                <h1 class="text-5xl font-bold text-gray-800 mb-4 leading-tight">
+                    《清晰思考》
+                </h1>
+                
+                <!-- Subtitle -->
+                <h2 class="text-3xl font-medium text-blue-600 mb-8">
+                    将平凡时刻转化为非凡成果
+                </h2>
+                
+                <!-- Divider -->
+                <div class="w-32 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto mb-8 rounded-full"></div>
+                
+                <!-- Sharing info -->
+                <div class="bg-gray-50 rounded-2xl p-8 mb-6">
+                    <div class="flex items-center justify-center mb-4">
+                        <i class="fas fa-satellite-dish text-3xl text-blue-500 mr-4"></i>
+                        <h3 class="text-2xl font-semibold text-gray-700">读书分享</h3>
+                    </div>
+                    <p class="text-xl text-gray-600 mb-2">
+                        <i class="fas fa-user-tie mr-3 text-blue-500"></i>
+                        谢昊 - RAN产品网管规划
+                    </p>
+                    <p class="text-lg text-gray-500">
+                        <i class="fas fa-calendar-alt mr-3 text-blue-400"></i>
+                        内部分享交流
+                    </p>
+                </div>
+                
+                <!-- Quote -->
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-xl">
+                    <p class="text-lg text-gray-700 italic">
+                        "在刺激与反应之间留出空间，让理性思维介入"
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Corner decorations -->
+        <div class="absolute top-0 left-0 w-32 h-32 border-t-4 border-l-4 border-white opacity-20 rounded-tl-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-32 h-32 border-b-4 border-r-4 border-white opacity-20 rounded-br-3xl"></div>
+    </section>
+
+    <!-- Section 2: 认知默认值 -->
+    <section id="section2" class="slide-container relative tech-grid">
+        <div class="section-title">认知默认值 - 识别思维陷阱</div>
+        <div class="page-indicator">2/6</div>
+        
+        <div class="max-w-6xl w-full">
+            <!-- Header -->
+            <div class="text-center mb-10 slide-in">
+                <div class="flex items-center justify-center mb-4">
+                    <i class="fas fa-exclamation-triangle text-4xl text-red-500 mr-4 pulse-subtle"></i>
+                    <h1 class="text-4xl font-bold text-gray-800">认知默认值</h1>
+                    <i class="fas fa-brain text-4xl text-blue-600 ml-4 pulse-subtle"></i>
+                </div>
+                <p class="text-xl text-gray-600 font-medium">识别四种思维陷阱，避免产品规划中的非理性决策</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Four Default Values Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 slide-in-delay">
+                <!-- 情绪默认值 -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-red-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-heart text-2xl text-red-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">情绪默认值</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-3">被当下情绪而非事实驱动决策</p>
+                    <div class="bg-red-50 p-3 rounded-lg border-l-4 border-red-400">
+                        <p class="text-sm text-gray-700">
+                            <i class="fas fa-exclamation-circle text-red-500 mr-2"></i>
+                            客户压力下急于推出产品方案，忽视技术可行性评估
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 自我默认值 -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-crown text-2xl text-yellow-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">自我默认值</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-3">维护自我价值和地位</p>
+                    <div class="bg-yellow-50 p-3 rounded-lg border-l-4 border-yellow-400">
+                        <p class="text-sm text-gray-700">
+                            <i class="fas fa-shield-alt text-yellow-500 mr-2"></i>
+                            为保住面子拒绝承认原有方案不足，错失改进机会
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 社会默认值 -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-users text-2xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">社会默认值</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-3">遵循群体规范，盲从他人</p>
+                    <div class="bg-green-50 p-3 rounded-lg border-l-4 border-green-400">
+                        <p class="text-sm text-gray-700">
+                            <i class="fas fa-arrow-right text-green-500 mr-2"></i>
+                            盲从领导意见或市场潮流，不质疑真实客户需求
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 惯性默认值 -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-sync-alt text-2xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">惯性默认值</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-3">偏好熟悉，抗拒改变</p>
+                    <div class="bg-purple-50 p-3 rounded-lg border-l-4 border-purple-400">
+                        <p class="text-sm text-gray-700">
+                            <i class="fas fa-lock text-purple-500 mr-2"></i>
+                            按旧有产品思路规划新品，忽视行业变革机会
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Solutions Section -->
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white slide-in-delay">
+                <div class="flex items-center mb-6">
+                    <i class="fas fa-lightbulb text-3xl mr-4"></i>
+                    <h2 class="text-2xl font-bold">应对策略</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-start">
+                        <div class="bg-white bg-opacity-20 p-2 rounded-full mr-4 mt-1">
+                            <i class="fas fa-pause text-lg"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">情绪波动时先停顿观察</h4>
+                            <p class="text-sm opacity-90">深呼吸，避免立刻回应，让理性思维介入</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-white bg-opacity-20 p-2 rounded-full mr-4 mt-1">
+                            <i class="fas fa-history text-lg"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">定期决策回顾反思</h4>
+                            <p class="text-sm opacity-90">识别哪些选择受偏见影响并及时纠正</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-white bg-opacity-20 p-2 rounded-full mr-4 mt-1">
+                            <i class="fas fa-comments text-lg"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">鼓励团队多元化观点</h4>
+                            <p class="text-sm opacity-90">提供数据支持，对抗群体从众心理</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-white bg-opacity-20 p-2 rounded-full mr-4 mt-1">
+                            <i class="fas fa-flask text-lg"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">小范围沙盘演练</h4>
+                            <p class="text-sm opacity-90">用实验打破惯性认知，积累应对经验</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: 决策流程系统化 -->
+    <section id="section3" class="slide-container relative tech-grid">
+        <div class="section-title">决策流程系统化</div>
+        <div class="page-indicator">3/6</div>
+        
+        <div class="max-w-6xl w-full px-4">
+            <!-- Header -->
+            <div class="text-center mb-8 slide-in">
+                <div class="flex items-center justify-center mb-4">
+                    <i class="fas fa-route text-4xl text-blue-600 mr-4 pulse-subtle"></i>
+                    <h1 class="text-4xl font-bold text-gray-800">决策流程系统化</h1>
+                    <i class="fas fa-cog text-4xl text-purple-600 ml-4 pulse-subtle"></i>
+                </div>
+                <p class="text-xl text-gray-600 font-medium">四阶段决策流程在产品规划中的系统化应用</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Four Stage Process -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 slide-in-delay">
+                <!-- Stage 1: 界定问题 -->
+                <div class="bg-white rounded-xl p-5 shadow-lg border border-gray-100 card-hover process-arrow">
+                    <div class="text-center">
+                        <div class="step-number mx-auto mb-3">1</div>
+                        <div class="bg-blue-100 p-3 rounded-full inline-block mb-3">
+                            <i class="fas fa-search text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">界定问题</h3>
+                        <p class="text-sm text-gray-600 mb-3">明确真正的客户需求和核心目标</p>
+                        <div class="bg-blue-50 p-2 rounded text-xs text-gray-700">
+                            区分事实与假设，避免"解决错误的问题"
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 2: 探索解决方案 -->
+                <div class="bg-white rounded-xl p-5 shadow-lg border border-gray-100 card-hover process-arrow">
+                    <div class="text-center">
+                        <div class="step-number mx-auto mb-3">2</div>
+                        <div class="bg-green-100 p-3 rounded-full inline-block mb-3">
+                            <i class="fas fa-lightbulb text-2xl text-green-600"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">探索方案</h3>
+                        <p class="text-sm text-gray-600 mb-3">结合行业趋势、技术路线和市场案例</p>
+                        <div class="bg-green-50 p-2 rounded text-xs text-gray-700">
+                            坚持"斯托克代尔悖论"：既乐观又现实
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 3: 评估选项 -->
+                <div class="bg-white rounded-xl p-5 shadow-lg border border-gray-100 card-hover process-arrow">
+                    <div class="text-center">
+                        <div class="step-number mx-auto mb-3">3</div>
+                        <div class="bg-yellow-100 p-3 rounded-full inline-block mb-3">
+                            <i class="fas fa-balance-scale text-2xl text-yellow-600"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">评估选项</h3>
+                        <p class="text-sm text-gray-600 mb-3">运用数据和场景分析，平衡收益与风险</p>
+                        <div class="bg-yellow-50 p-2 rounded text-xs text-gray-700">
+                            预留安全系数，应对突发变化
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stage 4: 执行决策 -->
+                <div class="bg-white rounded-xl p-5 shadow-lg border border-gray-100 card-hover">
+                    <div class="text-center">
+                        <div class="step-number mx-auto mb-3">4</div>
+                        <div class="bg-purple-100 p-3 rounded-full inline-block mb-3">
+                            <i class="fas fa-rocket text-2xl text-purple-600"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">执行决策</h3>
+                        <p class="text-sm text-gray-600 mb-3">整合分析为明确的产品路线图</p>
+                        <div class="bg-purple-50 p-2 rounded text-xs text-gray-700">
+                            落实跨部门协作，确保执行到位
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dropbox Case Study -->
+            <div class="bg-gradient-to-r from-indigo-600 to-blue-600 rounded-2xl p-6 text-white mb-6 slide-in-delay-2">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-case-study text-3xl mr-4"></i>
+                    <h2 class="text-2xl font-bold">实践案例：Dropbox 三阶段评审框架</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white bg-opacity-20 rounded-xl p-4 text-center">
+                        <div class="bg-white bg-opacity-30 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-xl font-bold">0</span>
+                        </div>
+                        <h4 class="font-semibold mb-2">阶段 0</h4>
+                        <p class="text-sm opacity-90">"要解决什么问题？"</p>
+                        <p class="text-xs mt-2 opacity-80">明确问题定义和目标</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-xl p-4 text-center">
+                        <div class="bg-white bg-opacity-30 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-xl font-bold">1</span>
+                        </div>
+                        <h4 class="font-semibold mb-2">阶段 1</h4>
+                        <p class="text-sm opacity-90">"拟如何解决？"</p>
+                        <p class="text-xs mt-2 opacity-80">探索解决方案和路径</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-xl p-4 text-center">
+                        <div class="bg-white bg-opacity-30 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-xl font-bold">2</span>
+                        </div>
+                        <h4 class="font-semibold mb-2">阶段 2</h4>
+                        <p class="text-sm opacity-90">"解决方案是什么样子？"</p>
+                        <p class="text-xs mt-2 opacity-80">具体实施方案和细节</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Benefits -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 slide-in-delay-2">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-check-circle text-2xl text-green-600 mr-3"></i>
+                    <h3 class="text-xl font-bold text-gray-800">系统化决策的核心价值</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="flex items-center">
+                        <div class="bg-green-100 p-2 rounded-full mr-3">
+                            <i class="fas fa-target text-green-600"></i>
+                        </div>
+                        <span class="text-gray-700">确保团队共识，避免偏离目标</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-blue-100 p-2 rounded-full mr-3">
+                            <i class="fas fa-clock text-blue-600"></i>
+                        </div>
+                        <span class="text-gray-700">提高决策效率，减少返工成本</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-purple-100 p-2 rounded-full mr-3">
+                            <i class="fas fa-shield-alt text-purple-600"></i>
+                        </div>
+                        <span class="text-gray-700">建立风险缓冲，应对市场变化</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-yellow-100 p-2 rounded-full mr-3">
+                            <i class="fas fa-handshake text-yellow-600"></i>
+                        </div>
+                        <span class="text-gray-700">促进跨部门协作，统一行动方向</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: 创造思考暂停空间 -->
+    <section id="section4" class="slide-container relative tech-grid">
+        <div class="section-title">创造思考暂停空间</div>
+        <div class="page-indicator">4/6</div>
+        
+        <div class="max-w-6xl w-full px-4">
+            <!-- Header -->
+            <div class="text-center mb-8 slide-in">
+                <div class="flex items-center justify-center mb-4">
+                    <i class="fas fa-pause-circle text-4xl text-blue-600 mr-4 pulse-subtle"></i>
+                    <h1 class="text-4xl font-bold text-gray-800">创造思考暂停空间</h1>
+                    <i class="fas fa-brain text-4xl text-purple-600 ml-4 pulse-subtle"></i>
+                </div>
+                <p class="text-xl text-gray-600 font-medium">在高压环境下保持理性思维的关键技巧</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Core Concept -->
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white mb-8 slide-in-delay">
+                <div class="flex items-center justify-center mb-6">
+                    <div class="bg-white bg-opacity-20 rounded-full p-4 mr-4 arrow-flow">
+                        <i class="fas fa-exclamation text-2xl"></i>
+                        <p class="text-sm mt-2 text-center">刺激</p>
+                    </div>
+                    <div class="bg-yellow-400 rounded-full p-4 mr-4 pause-animation arrow-flow">
+                        <i class="fas fa-pause text-2xl text-gray-800"></i>
+                        <p class="text-sm mt-2 text-center text-gray-800 font-bold">暂停</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-full p-4">
+                        <i class="fas fa-lightbulb text-2xl"></i>
+                        <p class="text-sm mt-2 text-center">理性反应</p>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold mb-3">在刺激与反应之间留出空间</h2>
+                    <p class="text-lg opacity-90">让理性思维介入，避免被默认偏见驱动</p>
+                </div>
+            </div>
+
+            <!-- Practical Techniques -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 slide-in-delay">
+                <!-- High Pressure Techniques -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-red-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-fire text-2xl text-red-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">高压场景应对</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-3 mt-1">
+                                <i class="fas fa-hand-paper text-blue-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700">受到强烈批评时</p>
+                                <p class="text-sm text-gray-600">深呼吸或说"请稍等"，利用停顿过滤冲动情绪</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-green-100 p-2 rounded-full mr-3 mt-1">
+                                <i class="fas fa-clock text-green-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700">团队会议中</p>
+                                <p class="text-sm text-gray-600">主动提醒自己"暂停两秒再回应"</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-2 rounded-full mr-3 mt-1">
+                                <i class="fas fa-eye text-purple-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700">情绪审视</p>
+                                <p class="text-sm text-gray-600">关键时刻学会抽身审视情绪状态</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Communication Framework -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-comments text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800">沟通框架建立</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-indigo-100 p-2 rounded-full mr-3 mt-1">
+                                <i class="fas fa-chart-bar text-indigo-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700">数据驱动对话</p>
+                                <p class="text-sm text-gray-600">用清晰数据和事实支撑引导对话</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-yellow-100 p-2 rounded-full mr-3 mt-1">
+                                <i class="fas fa-language text-yellow-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700">统一语言</p>
+                                <p class="text-sm text-gray-600">建立团队统一沟通框架，讲"同样的语言"</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-teal-100 p-2 rounded-full mr-3 mt-1">
+                                <i class="fas fa-share-alt text-teal-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700">透明分享</p>
+                                <p class="text-sm text-gray-600">主动分享决策依据和进度，消除误解</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leadership Impact -->
+            <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-6 text-white mb-6 slide-in-delay-2">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-crown text-3xl mr-4"></i>
+                    <h2 class="text-2xl font-bold">管理者的关键领导力</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="bg-white bg-opacity-20 rounded-full p-4 inline-block mb-3">
+                            <i class="fas fa-search-plus text-2xl"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">情绪察觉</h4>
+                        <p class="text-sm opacity-90">识别被情绪驱动的决策时刻</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white bg-opacity-20 rounded-full p-4 inline-block mb-3">
+                            <i class="fas fa-balance-scale text-2xl"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">冷静分析</h4>
+                        <p class="text-sm opacity-90">基于数据和逻辑进行理性沟通</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white bg-opacity-20 rounded-full p-4 inline-block mb-3">
+                            <i class="fas fa-users-cog text-2xl"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">团队协同</h4>
+                        <p class="text-sm opacity-90">建立统一框架，避免信息不对称</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Benefits -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 slide-in-delay-2">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-trophy text-2xl text-yellow-600 mr-3"></i>
+                    <h3 class="text-xl font-bold text-gray-800">暂停思考的核心价值</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-center">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-shield-alt text-blue-600 text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-700">避免冲动决策</p>
+                            <p class="text-sm text-gray-600">减少情绪化反应造成的错误</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-green-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-handshake text-green-600 text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-700">改善沟通质量</p>
+                            <p class="text-sm text-gray-600">基于事实的理性对话</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-purple-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-lightbulb text-purple-600 text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-700">提升决策质量</p>
+                            <p class="text-sm text-gray-600">理性思维介入带来更好结果</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-yellow-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-chart-line text-yellow-600 text-lg"></i>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-700">增强团队信任</p>
+                            <p class="text-sm text-gray-600">透明沟通建立互信基础</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: 清晰思维的长期培养 -->
+    <section id="section5" class="slide-container relative tech-grid">
+        <div class="section-title">清晰思维的长期培养</div>
+        <div class="page-indicator">5/6</div>
+        
+        <div class="max-w-6xl w-full px-4">
+            <!-- Header -->
+            <div class="text-center mb-8 slide-in">
+                <div class="flex items-center justify-center mb-4">
+                    <i class="fas fa-seedling text-4xl text-green-600 mr-4 pulse-subtle"></i>
+                    <h1 class="text-4xl font-bold text-gray-800">清晰思维的长期培养</h1>
+                    <i class="fas fa-chart-line text-4xl text-blue-600 ml-4 pulse-subtle"></i>
+                </div>
+                <p class="text-xl text-gray-600 font-medium">让清晰思维成为常态的习惯培养和自我提升策略</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-green-500 to-blue-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Three Main Areas -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 slide-in-delay">
+                <!-- Self Reflection & Accountability -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 card-hover">
+                    <div class="text-center mb-6">
+                        <div class="bg-gradient-to-br from-blue-500 to-purple-600 p-4 rounded-full inline-block mb-4 summary-animation">
+                            <i class="fas fa-mirror text-3xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">自我反思与问责</h3>
+                        <div class="progress-bar w-full mb-4"></div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 p-2 rounded-full mr-3 mt-1 flex-shrink-0">
+                                <i class="fas fa-clipboard-check text-blue-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700 text-sm">项目总结习惯</p>
+                                <p class="text-xs text-gray-600">每个项目结束后检视决策质量</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 p-2 rounded-full mr-3 mt-1 flex-shrink-0">
+                                <i class="fas fa-search-plus text-purple-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700 text-sm">偏见识别</p>
+                                <p class="text-xs text-gray-600">区分数据驱动与偏见影响的选择</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-green-100 p-2 rounded-full mr-3 mt-1 flex-shrink-0">
+                                <i class="fas fa-hand-holding-heart text-green-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700 text-sm">结果负责</p>
+                                <p class="text-xs text-gray-600">对结果负责，不逃避问题</p>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-lg">
+                            <p class="text-xs text-gray-700 text-center font-medium">
+                                "我可以控制自己的应对方式"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Learning & Feedback Mechanism -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 card-hover">
+                    <div class="text-center mb-6">
+                        <div class="bg-gradient-to-br from-green-500 to-teal-600 p-4 rounded-full inline-block mb-4 summary-animation">
+                            <i class="fas fa-users-cog text-3xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">学习与反馈机制</h3>
+                        <div class="progress-bar w-full mb-4"></div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-yellow-100 p-2 rounded-full mr-3 mt-1 flex-shrink-0">
+                                <i class="fas fa-user-graduate text-yellow-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700 text-sm">导师请教</p>
+                                <p class="text-xs text-gray-600">定期向有经验的导师学习</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-teal-100 p-2 rounded-full mr-3 mt-1 flex-shrink-0">
+                                <i class="fas fa-network-wired text-teal-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700 text-sm">意见领袖圈</p>
+                                <p class="text-xs text-gray-600">构建个人学习网络</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-indigo-100 p-2 rounded-full mr-3 mt-1 flex-shrink-0">
+                                <i class="fas fa-flask text-indigo-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700 text-sm">沙盒训练</p>
+                                <p class="text-xs text-gray-600">可控环境中试验新思路</p>
+                            </div>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded-lg">
+                            <p class="text-xs text-gray-700 text-center font-medium">
+                                "如果榜样面对此问题会怎么做？"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Market & Tech Sensitivity -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 card-hover">
+                    <div class="text-center mb-6">
+                        <div class="bg-gradient-to-br from-purple-500 to-pink-600 p-4 rounded-full inline-block mb-4 summary-animation">
+                            <i class="fas fa-radar-chart text-3xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">保持市场敏感性</h3>
+                        <div class="progress-bar w-full mb-4"></div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="bg-pink-100 p-2 rounded-full mr-3 mt-1 flex-shrink-0">
+                                <i class="fas fa-chart-bar text-pink-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700 text-sm">行业对标</p>
+                                <p class="text-xs text-gray-600">多做竞品分析和趋势研究</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-orange-100 p-2 rounded-full mr-3 mt-1 flex-shrink-0">
+                                <i class="fas fa-brain text-orange-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700 text-sm">前瞻性研究</p>
+                                <p class="text-xs text-gray-600">关注技术发展和市场变化</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-red-100 p-2 rounded-full mr-3 mt-1 flex-shrink-0">
+                                <i class="fas fa-book-reader text-red-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700 text-sm">专业阅读</p>
+                                <p class="text-xs text-gray-600">阅读相关书籍和案例分析</p>
+                            </div>
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded-lg">
+                            <p class="text-xs text-gray-700 text-center font-medium">
+                                长期价值培养纳入日常工作
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Long-term Value Framework -->
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white mb-6 slide-in-delay-2">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-seedling text-3xl mr-4"></i>
+                    <h2 class="text-2xl font-bold">长期价值培养框架</h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="text-center">
+                        <div class="bg-white bg-opacity-20 rounded-full p-3 inline-block mb-3">
+                            <i class="fas fa-calendar-alt text-xl"></i>
+                        </div>
+                        <h4 class="font-semibold mb-1 text-sm">年度战略</h4>
+                        <p class="text-xs opacity-90">制定长期学习计划</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white bg-opacity-20 rounded-full p-3 inline-block mb-3">
+                            <i class="fas fa-chart-line text-xl"></i>
+                        </div>
+                        <h4 class="font-semibold mb-1 text-sm">趋势分析</h4>
+                        <p class="text-xs opacity-90">定期行业趋势报告</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white bg-opacity-20 rounded-full p-3 inline-block mb-3">
+                            <i class="fas fa-handshake text-xl"></i>
+                        </div>
+                        <h4 class="font-semibold mb-1 text-sm">同行交流</h4>
+                        <p class="text-xs opacity-90">建立专业交流网络</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white bg-opacity-20 rounded-full p-3 inline-block mb-3">
+                            <i class="fas fa-shield-alt text-xl"></i>
+                        </div>
+                        <h4 class="font-semibold mb-1 text-sm">抗压能力</h4>
+                        <p class="text-xs opacity-90">避免短期压力影响</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Success Factors -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 slide-in-delay-2">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-key text-2xl text-yellow-600 mr-3"></i>
+                    <h3 class="text-xl font-bold text-gray-800">成功培养的关键要素</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="bg-blue-100 p-4 rounded-full inline-block mb-3">
+                            <i class="fas fa-sync-alt text-2xl text-blue-600"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-700 mb-2">持续性</h4>
+                        <p class="text-sm text-gray-600">将反思和学习融入日常工作流程</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-green-100 p-4 rounded-full inline-block mb-3">
+                            <i class="fas fa-bullseye text-2xl text-green-600"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-700 mb-2">系统性</h4>
+                        <p class="text-sm text-gray-600">建立完整的学习和反馈体系</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-purple-100 p-4 rounded-full inline-block mb-3">
+                            <i class="fas fa-lightbulb text-2xl text-purple-600"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-700 mb-2">实践性</h4>
+                        <p class="text-sm text-gray-600">在实际工作中验证和应用所学</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: 总结与行动建议 -->
+    <section id="section6" class="slide-container relative tech-grid">
+        <div class="section-title">总结与行动建议</div>
+        <div class="page-indicator">6/6</div>
+        
+        <div class="max-w-6xl w-full px-4">
+            <!-- Header -->
+            <div class="text-center mb-6 slide-in">
+                <div class="flex items-center justify-center mb-4">
+                    <i class="fas fa-flag-checkered text-4xl text-green-600 mr-4 pulse-subtle"></i>
+                    <h1 class="text-4xl font-bold text-gray-800">总结与行动建议</h1>
+                    <i class="fas fa-rocket text-4xl text-blue-600 ml-4 pulse-subtle"></i>
+                </div>
+                <p class="text-xl text-gray-600 font-medium">将清晰思考转化为实际行动的关键步骤</p>
+                <div class="w-24 h-1 bg-gradient-to-r from-green-500 to-blue-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Key Points Summary -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 slide-in-delay">
+                <div class="bg-white rounded-xl p-4 shadow-lg border border-gray-100 card-hover">
+                    <div class="text-center">
+                        <div class="bg-gradient-to-br from-red-500 to-orange-500 p-3 rounded-full inline-block mb-3 summary-animation">
+                            <i class="fas fa-brain text-xl text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">认知默认值</h3>
+                        <p class="text-sm text-gray-600">识别并克服四种思维陷阱</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-4 shadow-lg border border-gray-100 card-hover">
+                    <div class="text-center">
+                        <div class="bg-gradient-to-br from-blue-500 to-indigo-500 p-3 rounded-full inline-block mb-3 summary-animation">
+                            <i class="fas fa-cogs text-xl text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">决策流程</h3>
+                        <p class="text-sm text-gray-600">四阶段系统化决策方法</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-4 shadow-lg border border-gray-100 card-hover">
+                    <div class="text-center">
+                        <div class="bg-gradient-to-br from-yellow-500 to-orange-500 p-3 rounded-full inline-block mb-3 summary-animation">
+                            <i class="fas fa-pause-circle text-xl text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">思考暂停</h3>
+                        <p class="text-sm text-gray-600">在刺激与反应间留出空间</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-4 shadow-lg border border-gray-100 card-hover">
+                    <div class="text-center">
+                        <div class="bg-gradient-to-br from-green-500 to-teal-500 p-3 rounded-full inline-block mb-3 summary-animation">
+                            <i class="fas fa-seedling text-xl text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-800 mb-2">长期培养</h3>
+                        <p class="text-sm text-gray-600">持续性习惯养成策略</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Plan -->
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-6 text-white mb-6 slide-in-delay">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-tasks text-3xl mr-4"></i>
+                    <h2 class="text-2xl font-bold">30天行动计划</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white bg-opacity-20 rounded-xl p-4">
+                        <div class="flex items-center mb-3">
+                            <div class="bg-yellow-400 rounded-full p-2 mr-3">
+                                <span class="text-gray-800 font-bold text-sm">1-10天</span>
+                            </div>
+                            <h4 class="font-bold text-lg">意识培养期</h4>
+                        </div>
+                        <ul class="text-sm space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-400 mr-2 check-animation"></i>
+                                识别个人默认值模式
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-400 mr-2 check-animation"></i>
+                                建立暂停思考习惯
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-400 mr-2 check-animation"></i>
+                                记录情绪化决策时刻
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-xl p-4">
+                        <div class="flex items-center mb-3">
+                            <div class="bg-blue-400 rounded-full p-2 mr-3">
+                                <span class="text-white font-bold text-sm">11-20天</span>
+                            </div>
+                            <h4 class="font-bold text-lg">技能练习期</h4>
+                        </div>
+                        <ul class="text-sm space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-400 mr-2 check-animation"></i>
+                                应用四阶段决策流程
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-400 mr-2 check-animation"></i>
+                                实践数据驱动沟通
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-400 mr-2 check-animation"></i>
+                                寻找导师和反馈
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-xl p-4">
+                        <div class="flex items-center mb-3">
+                            <div class="bg-green-400 rounded-full p-2 mr-3">
+                                <span class="text-gray-800 font-bold text-sm">21-30天</span>
+                            </div>
+                            <h4 class="font-bold text-lg">习惯固化期</h4>
+                        </div>
+                        <ul class="text-sm space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-400 mr-2 check-animation"></i>
+                                建立反思总结机制
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-400 mr-2 check-animation"></i>
+                                制定长期学习计划
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-400 mr-2 check-animation"></i>
+                                分享经验给团队
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Success Factors and Call to Action -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 slide-in-delay-2">
+                <!-- Success Factors -->
+                <div class="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-trophy text-2xl text-yellow-600 mr-3"></i>
+                        <h3 class="text-xl font-bold text-gray-800">成功关键因素</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                            <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-heartbeat text-blue-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700">持续性</p>
+                                <p class="text-sm text-gray-600">每天练习，形成自然反应</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                            <div class="bg-green-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-users text-green-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700">团队支持</p>
+                                <p class="text-sm text-gray-600">与同事分享，相互监督</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center p-3 bg-purple-50 rounded-lg">
+                            <div class="bg-purple-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-chart-line text-purple-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-700">及时反馈</p>
+                                <p class="text-sm text-gray-600">定期回顾和调整方法</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-6 text-white">
+                    <div class="text-center">
+                        <div class="bg-white bg-opacity-20 p-4 rounded-full inline-block mb-4 action-pulse">
+                            <i class="fas fa-lightbulb text-4xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">立即开始行动</h3>
+                        <div class="space-y-3 text-left">
+                            <div class="flex items-center">
+                                <i class="fas fa-play-circle text-2xl text-yellow-400 mr-3"></i>
+                                <p class="text-lg">今天开始观察自己的默认反应</p>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-calendar-check text-2xl text-green-400 mr-3"></i>
+                                <p class="text-lg">本周建立一个决策框架</p>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-handshake text-2xl text-blue-400 mr-3"></i>
+                                <p class="text-lg">找一位导师或学习伙伴</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 p-4 bg-white bg-opacity-20 rounded-lg">
+                            <p class="text-lg font-bold">"从平凡时刻开始，创造非凡成果！"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final Quote -->
+            <div class="text-center mt-6 slide-in-delay-3">
+                <div class="bg-white rounded-xl p-4 shadow-lg border border-gray-100 inline-block">
+                    <p class="text-xl font-bold text-gray-800 mb-2">
+                        <i class="fas fa-quote-left text-blue-600 mr-2"></i>
+                        清晰思考不是天赋，而是可以培养的技能
+                        <i class="fas fa-quote-right text-blue-600 ml-2"></i>
+                    </p>
+                    <p class="text-sm text-gray-600">感谢大家的聆听，期待与您一起实践清晰思考！</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Navigation and scroll functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const navDots = document.querySelectorAll('.nav-dot');
+            const sections = document.querySelectorAll('section');
+            
+            // Set active dot based on scroll position
+            function setActiveDot() {
+                const scrollPosition = window.scrollY;
+                
+                sections.forEach((section, index) => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        navDots.forEach(dot => dot.classList.remove('active'));
+                        navDots[index].classList.add('active');
+                        
+                        // Update page indicator
+                        const pageIndicator = section.querySelector('.page-indicator');
+                        if (pageIndicator) {
+                            pageIndicator.textContent = `${index + 1}/6`;
+                        }
+                    }
+                });
+            }
+            
+            // Scroll to section when dot is clicked
+            navDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Listen for scroll events
+            window.addEventListener('scroll', setActiveDot);
+            
+            // Initialize active dot
+            setActiveDot();
+            
+            // Add slide-in animations on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const elements = entry.target.querySelectorAll('.slide-in, .slide-in-delay, .slide-in-delay-2, .slide-in-delay-3');
+                        elements.forEach(el => {
+                            // Reset animation to trigger again
+                            el.style.animation = 'none';
+                            setTimeout(() => {
+                                el.style.animation = '';
+                            }, 10);
+                        });
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
